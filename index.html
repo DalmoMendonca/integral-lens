@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integral Lens</title>
+    <!-- Import Google Fonts for a modern, slightly experimental feel -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Home Section -->
+    <section id="home" class="view active-view">
+      <div class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1 class="site-title">Integral Lens</h1>
+          <p class="tagline">See the world in a new way.</p>
+        </div>
+      </div>
+      <div class="home-body">
+        <p class="intro">
+          There’s a theory that says that everything that exists belongs, like
+          parts of a whole fitting together for a higher purpose. This is the
+          essence of Ken Wilber’s integral approach. If you’d like a gentle
+          introduction, check out the
+          <a
+            href="https://integrallife.com/welcome-to-the-integral-approach/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Integral Life primer</a
+          >.
+        </p>
+        <div class="options-grid">
+          <div
+            class="option-card quadrants-card"
+            data-target="quadrants"
+            tabindex="0"
+            role="button"
+          >
+            <h2>Quadrants</h2>
+            <p>
+              Everything has an internal and an external face, and everything
+              shows up both individually and collectively, all happening at the
+              same time. Want to see?
+            </p>
+          </div>
+          <div
+            class="option-card levels-card"
+            data-target="levels"
+            tabindex="0"
+            role="button"
+          >
+            <h2>Levels</h2>
+            <p>
+              Everything grows, typically following a universal pattern where
+              each stage transcends and includes the previous, ideally
+              integrating the best from the foundational earlier levels. See it
+              in action.
+            </p>
+          </div>
+          <div
+            class="option-card states-card"
+            data-target="states"
+            tabindex="0"
+            role="button"
+          >
+            <h2>States</h2>
+            <p>
+              Humans have access to different states of consciousness, temporary
+              configurations of reality that facilitate a very different
+              experience of the world around us. See more.
+            </p>
+          </div>
+        </div>
+      </div>
+      <footer>
+        Made with <span class="heart">❤️</span> by Dalmo |
+        <a href="https://hiredalmo.com" target="_blank" rel="noopener noreferrer"
+          >hiredalmo.com</a
+        >
+      </footer>
+    </section>
+
+    <!-- Quadrants Section -->
+    <section id="quadrants" class="view hidden-view">
+      <div class="page-header">
+        <button class="back-button" data-back="home">
+          <span class="arrow">←</span>
+          <span class="back-label">Back Home</span>
+        </button>
+        <input
+          type="text"
+          maxlength="140"
+          placeholder="What do you want to see? e.g. coffee"
+          class="input-bar"
+        />
+      </div>
+      <div class="quadrants-container">
+        <div class="quadrant ul" id="quad-ul">
+          <h3>Internal Individual</h3>
+          <p class="subtitle">My inner world</p>
+          <div class="content"></div>
+        </div>
+        <div class="quadrant ur" id="quad-ur">
+          <h3>External Individual</h3>
+          <p class="subtitle">My outer world</p>
+          <div class="content"></div>
+        </div>
+        <div class="quadrant ll" id="quad-ll">
+          <h3>Internal Collective</h3>
+          <p class="subtitle">Our inner world</p>
+          <div class="content"></div>
+        </div>
+        <div class="quadrant lr" id="quad-lr">
+          <h3>External Collective</h3>
+          <p class="subtitle">The outer world</p>
+          <div class="content"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Levels Section -->
+    <section id="levels" class="view hidden-view">
+      <div class="page-header">
+        <button class="back-button" data-back="home">
+          <span class="arrow">←</span>
+          <span class="back-label">Back Home</span>
+        </button>
+        <input
+          type="text"
+          maxlength="140"
+          placeholder="What do you want to see? e.g. board games"
+          class="input-bar"
+        />
+      </div>
+      <div class="levels-container">
+        <div class="level magenta" id="level-magenta">
+          <h3>Magenta</h3>
+          <p class="subtitle"></p>
+          <div class="content"></div>
+        </div>
+        <div class="level red" id="level-red">
+          <h3>Red</h3>
+          <p class="subtitle"></p>
+          <div class="content"></div>
+        </div>
+        <div class="level amber" id="level-amber">
+          <h3>Amber</h3>
+          <p class="subtitle"></p>
+          <div class="content"></div>
+        </div>
+        <div class="level orange" id="level-orange">
+          <h3>Orange</h3>
+          <p class="subtitle"></p>
+          <div class="content"></div>
+        </div>
+        <div class="level green" id="level-green">
+          <h3>Green</h3>
+          <p class="subtitle"></p>
+          <div class="content"></div>
+        </div>
+        <div class="level teal" id="level-teal">
+          <h3>Teal</h3>
+          <p class="subtitle"></p>
+          <div class="content"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- States Section -->
+    <section id="states" class="view hidden-view">
+      <div class="page-header">
+        <button class="back-button" data-back="home">
+          <span class="arrow">←</span>
+          <span class="back-label">Back Home</span>
+        </button>
+        <input
+          type="text"
+          maxlength="140"
+          placeholder="What do you want to see? e.g. music"
+          class="input-bar"
+        />
+      </div>
+      <div class="states-container">
+        <div class="state gross" id="state-gross">
+          <h3>Gross</h3>
+          <div class="content"></div>
+        </div>
+        <div class="state subtle" id="state-subtle">
+          <h3>Subtle</h3>
+          <div class="content"></div>
+        </div>
+        <div class="state causal" id="state-causal">
+          <h3>Causal</h3>
+          <div class="content"></div>
+        </div>
+        <div class="state nondual" id="state-nondual">
+          <h3>Nondual</h3>
+          <div class="content"></div>
+        </div>
+      </div>
+    </section>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

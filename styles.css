@@ -1,0 +1,454 @@
+/*
+ * Integral Lens Stylesheet
+ *
+ * This CSS file defines the look and feel of the Integral Lens website.
+ * Inspired by avant‑garde designers like Stefan Sagmeister and David Carson, the palette
+ * is bold and unexpected. The layouts morph responsively to accommodate both mobile
+ * and desktop devices. Animations provide a sense of sliding through different lenses.
+ */
+
+/* CSS Variables for colour palettes */
+:root {
+  /* Home page palette – deep background with pops of color */
+  --color-bg: #0d1b2a;
+  --color-primary: #ff6b6b;
+  /* Updated accent colours to integrate #26c6da for a cohesive teal theme */
+  --color-secondary: #26c6da;
+  --color-accent: #26c6da;
+  --color-text: #f1f1f1;
+
+  /* Quadrant colours */
+  --quad-ul: #c7f6ff;
+  --quad-ur: #006275;
+  --quad-ll: #c7daff;
+  --quad-lr: #002775;
+
+  /* Level colours */
+  --level-magenta: #ff0080;
+  --level-red: #ff0000;
+  --level-amber: #ffc107;
+  --level-orange: #ff9800;
+  --level-green: #009688;
+  --level-teal: #0097a7;
+
+  /* State colours */
+  --state-gross: #e3e300;
+  --state-subtle: #ffff00;
+  --state-causal: #ffffb8;
+  --state-nondual: #ffffff;
+}
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Space Grotesk', 'Rubik', sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--color-secondary);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+a:hover {
+  color: var(--color-accent);
+}
+
+/* Section (view) styling */
+/* Views are overlaid and slide using transforms. We manage visibility via
+   `hidden-view` and pointer-events; opacity transitions are removed to make
+   directional motion more apparent. */
+.view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Allow vertical scrolling on small screens, but hide on desktop via media query */
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: translateX(0) translateY(0);
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+  pointer-events: none;
+}
+.view.active-view {
+  pointer-events: auto;
+}
+
+/* Home Section */
+#home {
+  background: linear-gradient(120deg, rgba(13,27,42,0.9) 0%, rgba(13,27,42,0.9) 40%, rgba(50,38,90,0.9) 100%);
+  /* Occupy full viewport height to avoid scrolling on desktop */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+/* Hero section reduced to avoid overflowing the viewport on desktop and updated to use new abstract
+   image. The image is centred and scaled to cover the area. */
+.hero {
+  position: relative;
+  height: 35vh;
+  background-image: url("./assets/images/hero.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13,27,42,0.7);
+  backdrop-filter: blur(3px);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.site-title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  color: var(--color-accent);
+}
+.tagline {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--color-secondary);
+}
+
+/* The home body now scrolls only on mobile; desktop overflow is hidden to prevent unwanted scroll */
+.home-body {
+  padding: 2rem 1rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  flex: 1;
+  overflow-y: auto;
+}
+.intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.option-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  color: var(--color-bg);
+  background: var(--color-secondary);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.option-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+.option-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.option-card:hover,
+.option-card:focus {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+/* Colour variations for each card */
+.quadrants-card {
+  background: linear-gradient(135deg, #00a7e1, #0086c3);
+  color: #f9fbfc;
+}
+.levels-card {
+  background: linear-gradient(135deg, #ff6f61, #ff416c);
+  color: #fef6f7;
+}
+.states-card {
+  background: linear-gradient(135deg, #8e8ee6, #6c5ce7);
+  color: #f9f7ff;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+}
+.heart {
+  color: var(--color-accent);
+}
+
+/* Page header for inner views */
+.page-header {
+  /* Align the input bar centrally while keeping the back arrow flush to the left.  We use
+     relative positioning to centre the input bar and absolute positioning on the back button. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+.back-button {
+  background: transparent;
+  border: none;
+  color: var(--color-secondary);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.back-button .arrow {
+  font-size: 1.5rem;
+  margin-right: 0.4rem;
+}
+.back-button .back-label {
+  display: none;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+/* Show label on larger screens */
+@media (min-width: 600px) {
+  .back-button .back-label {
+    display: inline;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .back-button:hover .back-label {
+    opacity: 1;
+  }
+}
+
+.input-bar {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 2rem;
+  border: 2px solid var(--color-secondary);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, background 0.3s;
+}
+.input-bar::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.input-bar:focus {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--color-accent);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 1rem auto;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Quadrants layout */
+/* Use column layout on small screens */
+.quadrants-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+}
+.quadrant {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #001c2c;
+  overflow-y: auto;
+}
+.quadrant h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.quadrant .subtitle {
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+  opacity: 0.8;
+}
+.quadrant .content {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+/* Assign colours to each quadrant */
+.quadrant.ul { background: var(--quad-ul); }
+.quadrant.ur { background: var(--quad-ur); color: #edfaff; }
+.quadrant.ll { background: var(--quad-ll); }
+.quadrant.lr { background: var(--quad-lr); color: #f2faff; }
+
+/* Levels layout */
+.levels-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+}
+.level {
+  flex: 1;
+  padding: 1rem;
+  color: #0f0f0f;
+  overflow-y: auto;
+}
+.level h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.level .content {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.level.magenta { background: var(--level-magenta); color: #fff5fb; }
+.level.red { background: var(--level-red); color: #fff5f5; }
+.level.amber { background: var(--level-amber); color: #3b2800; }
+.level.orange { background: var(--level-orange); color: #3f2400; }
+.level.green { background: var(--level-green); color: #e6ffff; }
+.level.teal { background: var(--level-teal); color: #e8fcff; }
+
+/* States layout */
+.states-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+}
+.state {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+.state h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.state .content {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.state.gross { background: var(--state-gross); color: #353500; }
+.state.subtle { background: var(--state-subtle); color: #494900; }
+.state.causal { background: var(--state-causal); color: #565600; }
+.state.nondual { background: var(--state-nondual); color: #3d3d3d; }
+
+/* Desktop layouts */
+@media (min-width: 768px) {
+  .options-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  /* Quadrants in 2x2 grid */
+  .quadrants-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: calc(100vh - 80px);
+  }
+  .quadrant {
+    flex: none;
+    height: auto;
+  }
+  /* Levels displayed as 6 columns */
+  .levels-container {
+    flex-direction: row;
+  }
+  .level {
+    width: calc(100% / 6);
+    height: calc(100vh - 100px);
+  }
+  /* States displayed as horizontal bands */
+  .states-container {
+    flex-direction: column;
+  }
+  .state {
+    height: calc((100vh - 100px) / 4);
+  }
+  .page-header {
+    flex-wrap: nowrap;
+  }
+  .input-bar {
+    max-width: 450px;
+  }
+
+  /* Prevent vertical scrolling on desktop by hiding overflow at the view level and in the home body */
+  .view {
+    overflow-y: hidden;
+  }
+  .home-body {
+    overflow-y: hidden;
+  }
+  /* Adjust containers to fill remaining height after the header (approx 80px) */
+  .quadrants-container {
+    height: calc(100vh - 80px);
+  }
+  .levels-container {
+    height: calc(100vh - 80px);
+    flex-direction: row;
+  }
+  .level {
+    width: calc(100% / 6);
+    height: calc(100vh - 80px);
+  }
+  .states-container {
+    flex-direction: column;
+    height: calc(100vh - 80px);
+  }
+  .state {
+    height: calc((100vh - 80px) / 4);
+  }
+}
+
+/* Animation classes for sliding transitions */
+.slide-in-right {
+  transform: translateX(100%);
+}
+.slide-in-left {
+  transform: translateX(-100%);
+}
+.slide-in-up {
+  transform: translateY(100%);
+}
+.slide-in-down {
+  transform: translateY(-100%);
+}
+.slide-active {
+  transform: translateX(0%) translateY(0%);
+}
+
+/* Hidden views are removed from layout flow */
+.hidden-view {
+  display: none;
+}
