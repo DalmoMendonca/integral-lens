@@ -24,12 +24,12 @@
   --quad-lr: #002775;
 
   /* Level colours */
-  --level-magenta: #ff0080;
-  --level-red: #ff0000;
-  --level-amber: #ffc107;
-  --level-orange: #ff9800;
-  --level-green: #009688;
-  --level-teal: #0097a7;
+  --level-magenta: #d81b60;
+  --level-red: #e53935;
+  --level-amber: #ffb300;
+  --level-orange: #fb8c00;
+  --level-green: #7cb342;
+  --level-teal: #26a69a;
 
   /* State colours */
   --state-gross: #e3e300;
@@ -97,7 +97,7 @@ a:hover {
    image. The image is centred and scaled to cover the area. */
 .hero {
   position: relative;
-  height: 35vh;
+  height: 30vh;
   background-image: url("./assets/images/hero.png");
   background-size: cover;
   background-position: center;
@@ -121,6 +121,7 @@ a:hover {
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: 0.05em;
+  margin-top: 3rem;
   margin-bottom: 0.5rem;
   color: var(--color-accent);
 }
@@ -174,15 +175,15 @@ a:hover {
 }
 /* Colour variations for each card */
 .quadrants-card {
-  background: linear-gradient(135deg, #00a7e1, #0086c3);
+  background: linear-gradient(135deg, #57A4DE, #0B5C8F, #044875); /* #00a7e1, #0086c3); */
   color: #f9fbfc;
 }
 .levels-card {
-  background: linear-gradient(135deg, #ff6f61, #ff416c);
+  background: linear-gradient(135deg, #9257DE, #3E0B8F, #310475); /* #ff6f61, #ff416c); */
   color: #fef6f7;
 }
 .states-card {
-  background: linear-gradient(135deg, #8e8ee6, #6c5ce7);
+  background: linear-gradient(135deg, #DED457, #8F800B, #756904); /* #8e8ee6, #6c5ce7); */
   color: #f9f7ff;
 }
 
@@ -432,21 +433,12 @@ footer {
 }
 
 /* Animation classes for sliding transitions */
-.slide-in-right {
-  transform: translateX(100%);
-}
-.slide-in-left {
-  transform: translateX(-100%);
-}
-.slide-in-up {
-  transform: translateY(100%);
-}
-.slide-in-down {
-  transform: translateY(-100%);
-}
-.slide-active {
-  transform: translateX(0%) translateY(0%);
-}
+/* Directional classes used to position an incoming view off‑screen. These are removed
+   just after the animation is triggered, causing the element to slide into place. */
+.from-right { transform: translateX(100%); }
+.from-left { transform: translateX(-100%); }
+.from-up { transform: translateY(100%); }
+.from-down { transform: translateY(-100%); }
 
 /* Hidden views are removed from layout flow */
 .hidden-view {

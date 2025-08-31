@@ -29,24 +29,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const outgoing = views[currentView];
     const incoming = views[targetId];
 
-    // Prepare incoming view off‑screen according to direction
+    if (incoming.id === 'home') {
+      // Prepare the incoming view off‑screen using a directional helper class.
+      incoming.classList.remove('hidden-view');
+      incoming.classList.add('view');
+      let fromClass = '';
+      if (direction === 'right') fromClass = 'from-left';
+      else if (direction === 'left') fromClass = 'from-right';
+      else if (direction === 'up') fromClass = 'from-down';
+      else if (direction === 'down') fromClass = 'from-up';
+      if (fromClass) outgoing.classList.add(fromClass);
+    }
+
+    // Prepare the incoming view off‑screen using a directional helper class.
     incoming.classList.remove('hidden-view');
     incoming.classList.add('view');
-    incoming.classList.add('slide-in-' + direction);
+    let fromClass = '';
+    if (direction === 'right') fromClass = 'from-right';
+    else if (direction === 'left') fromClass = 'from-left';
+    else if (direction === 'up') fromClass = 'from-up';
+    else if (direction === 'down') fromClass = 'from-down';
+    if (fromClass) incoming.classList.add(fromClass);
+
+    // Kick off the animation on the next frame: mark the view active (so it can receive
+    // input) and remove the positioning class. The CSS transition on `.view` will
+    // animate the transform to its default (0) once the class is removed.
     requestAnimationFrame(() => {
-      // Trigger the active state causing it to animate into place
       incoming.classList.add('active-view');
-      incoming.classList.add('slide-active');
+      if (fromClass) incoming.classList.remove(fromClass);
     });
 
-    // Hide outgoing view after animation completes
+    // Outgoing view simply loses its active state; we hide it after the
+    // animation completes. Once hidden, update the current view and focus the
+    // input bar of the incoming view if it exists.
     outgoing.classList.remove('active-view');
     setTimeout(() => {
       outgoing.classList.add('hidden-view');
-      outgoing.classList.remove('slide-active');
-      outgoing.classList.remove('slide-in-right', 'slide-in-left', 'slide-in-up', 'slide-in-down');
-      incoming.classList.remove('slide-in-right', 'slide-in-left', 'slide-in-up', 'slide-in-down');
-      // Focus on input of the incoming view if available
       const input = incoming.querySelector('.input-bar');
       if (input) input.focus();
       currentView = targetId;
@@ -80,9 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // quadrants slid in from the right, we use 'right' again so home slides
       // in from the same side, creating a consistent lens-flipping feel.
       let direction;
-      if (currentView === 'quadrants') direction = 'right';
-      else if (currentView === 'levels') direction = 'up';
-      else if (currentView === 'states') direction = 'left';
+      // Use the opposite direction of the forward transition to create a
+      // reversing effect: quadrants slide in from the right, so home slides in from the left; levels
+      // slide up from the bottom, so home slides in from the top (down); states slide in from the
+      // left, so home slides in from the right.
+      if (currentView === 'quadrants') direction = 'left';
+      else if (currentView === 'levels') direction = 'down';
+      else if (currentView === 'states') direction = 'right';
       slideTo('home', direction);
     });
   });
