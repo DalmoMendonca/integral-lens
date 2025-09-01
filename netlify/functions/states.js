@@ -51,6 +51,10 @@ exports.handler = async (event) => {
           body += chunk;
         });
         res.on('end', () => {
+          // If the API returns an error status (e.g. 401, 429), resolve with an error instead of parsing JSON.
+          if (res.statusCode && res.statusCode >= 400) {
+            return resolve({ error: `OpenAI API error (${res.statusCode}): ${body}` });
+          }
           try {
             resolve(JSON.parse(body));
           } catch (err) {
@@ -62,11 +66,29 @@ exports.handler = async (event) => {
       req.write(postData);
       req.end();
     });
-    const content = data.output_text;
+    
+    // If we resolved with an error, propagate it back to the client.
+    if (data.error) {
+      return {
+        statusCode: 502,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: data.error }),
+      };
+    }
+    
+    // Ensure the response contains output_text. If not, return a descriptive error.
+    if (!data.output_text) {
+      return {
+        statusCode: 502,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Missing output_text in OpenAI response' }),
+      };
+    }
+    
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
-      body: content,
+      body: data.output_text,
     };
   } catch (error) {
     return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
