@@ -31,9 +31,7 @@ exports.handler = async (event) => {
     const postData = JSON.stringify({
       model: 'gpt-5',
       instructions,
-      input,
-      temperature: 0.7,
-      max_output_tokens: 2000,
+      input
     });
     const options = {
       hostname: 'api.openai.com',

@@ -33,9 +33,7 @@ exports.handler = async (event) => {
     const postData = JSON.stringify({
       model: 'gpt-5',
       instructions,
-      input,
-      temperature: 0.7,
-      max_output_tokens: 2500,
+      input
     });
     const options = {
       hostname: 'api.openai.com',
@@ -53,6 +51,10 @@ exports.handler = async (event) => {
           body += chunk;
         });
         res.on('end', () => {
+          // If the API returns an error status (e.g. 401, 429), resolve with an error instead of parsing JSON.
+          if (res.statusCode && res.statusCode >= 400) {
+            return resolve({ error: `OpenAI API error (${res.statusCode}): ${body}` });
+          }
           try {
             resolve(JSON.parse(body));
           } catch (err) {
